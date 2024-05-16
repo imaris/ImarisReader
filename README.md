@@ -10,7 +10,7 @@ The ImarisReader library has C++, C, Java and Python APIs. Using C++ API pseudoc
 bpImageReader<bpUInt16> vImageReader(vFileName, vImageIndex, vOptions);
 vImageReader.ReadData(vBlockStartIndex, vBlockEndIndex, vResolutionLevel, vBlockData);
 ```
-Full usage examples in C++, C, Java and Python can be found here:
+Full usage examples in C++, C, Java and Python can be found here: https://github.com/imaris/ImarisReaderTest
 
 ### Dependencies
 
