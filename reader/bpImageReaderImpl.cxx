@@ -14,6 +14,9 @@
  *   limitations under the License.                                        *
  ***************************************************************************/
 
+#if defined(_WIN32)
+  #define NOMINMAX
+#endif
 
 #include "ImarisReader/reader/bpImageReaderImpl.h"
 
