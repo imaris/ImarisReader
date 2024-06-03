@@ -18,8 +18,8 @@
 #ifndef __BP_IMAGE_READER__
 #define __BP_IMAGE_READER__
 
-#include "ImarisReader/interface/bpImarisReaderDllAPI.h"
-#include "ImarisReader/interface/bpImageReaderInterface.h"
+#include "bpImarisReaderDllAPI.h"
+#include "bpImageReaderInterface.h"
 
 
 template<class TDataType>
