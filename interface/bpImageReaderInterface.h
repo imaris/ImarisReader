@@ -19,7 +19,7 @@
 #define __BP_IMAGE_READER_INTERFACE__
 
 
-#include "ImarisReader/interface/bpReaderTypes.h"
+#include "bpReaderTypes.h"
 
 
 class bpImageReaderBaseInterface
