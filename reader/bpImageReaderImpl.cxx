@@ -765,7 +765,7 @@ bool bpImageReaderImpl<TDataType>::ReadProperties()
 template<typename TDataType>
 bool bpImageReaderImpl<TDataType>::IsFormat()
 {
-  std::cout << "Fileid1: " << mFileID << std::endl;
+  // std::cout << "Fileid1: " << mFileID << std::endl;
   if (mFileID != 0) {
     // file is already open...
     return true;
