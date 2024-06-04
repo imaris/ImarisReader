@@ -14,7 +14,7 @@ Full usage examples in C++, C, Java and Python can be found here: https://github
 
 ### Dependencies
 
-1. boost: version >= 1.70. On macOS and Windows compile boost with:
+1. boost: version >= 1.70: https://www.boost.org/. On macOS and Windows compile boost with:
 ```
 --with-atomic --with-filesystem link=static
 ```
