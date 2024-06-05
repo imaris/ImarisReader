@@ -1,6 +1,6 @@
 # ImarisReader
 
-ImarisReader is a file reader for the Imaris5 file format (".ims"). The library provides fuctionality to read (possibly very large) image data from ".ims" files in blocks, as well as all related metadata and parameters associated with the dataset.
+ImarisReader is a file reader for the Imaris5 file format (".ims"). The library provides fuctionality to read (possibly very large) image data from ".ims" files in blocks, as well as all related metadata and parameters associated with the dataset (see also [docs](https://github.com/imaris/ImarisReader/tree/main/docs)).
 
 ### Usage
 
