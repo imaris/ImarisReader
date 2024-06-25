@@ -56,11 +56,6 @@ static void Convert(bpReaderTypesC_DataTypeVectorPtr aDataTypeVectorPtrC, std::v
 }
 
 
-void bpImageReaderC_FreeDataTypes(bpReaderTypesC_DataTypeVectorPtr aDataTypes) {
-  free(aDataTypes->mDataTypes);
-}
-
-
 static bpConverterTypes::tIndex5D Convert(bpReaderTypesC_Index5DPtr aIndex)
 {
   if (!aIndex) {
@@ -302,6 +297,10 @@ bpReaderTypesC_DataTypeVectorPtr bpImageReaderC_GetFileImagesInformation(bpReade
   bpReaderTypesC_DataTypeVectorPtr vDataTypeVectorPtr = new bpReaderTypesC_DataTypeVector;
   Convert(vDataTypeVectorPtr, GetFileImagesInformation(Convert(aInputFile), aSWMR));
   return vDataTypeVectorPtr;
+}
+
+void bpImageReaderC_FreeDataTypes(bpReaderTypesC_DataTypeVectorPtr aDataTypes) {
+  free(aDataTypes->mDataTypes);
 }
 
 
