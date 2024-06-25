@@ -25,6 +25,42 @@ static bpString Convert(bpReaderTypesC_String aString)
 }
 
 
+static bpReaderTypesC_DataType Convert(bpConverterTypes::tDataType aDataType) {
+  bpReaderTypesC_DataType vDataType;
+  switch (aDataType) {
+    case 2:
+      vDataType = bpReaderTypesC_UInt8Type;
+      break;
+    case 4:
+      vDataType = bpReaderTypesC_UInt16Type;
+      break;
+    case 6:
+      vDataType = bpReaderTypesC_UInt32Type;
+      break;
+    case 7:
+      vDataType = bpReaderTypesC_FloatType;
+      break;
+    default:
+      throw "DataType not supported";
+  }
+  return vDataType;
+}
+
+
+static void Convert(bpReaderTypesC_DataTypeVectorPtr aDataTypeVectorPtrC, std::vector<bpConverterTypes::tDataType> aDataTypeVector) {
+  aDataTypeVectorPtrC->mDataTypesSize = aDataTypeVector.size();
+  aDataTypeVectorPtrC->mDataTypes = (bpReaderTypesC_DataTypePtr)malloc(aDataTypeVector.size() * sizeof(bpReaderTypesC_DataType));
+  for (bpSize vIndex = 0; vIndex < aDataTypeVector.size(); ++vIndex) {
+    *(aDataTypeVectorPtrC->mDataTypes + vIndex) = Convert(aDataTypeVector[vIndex]);
+  }
+}
+
+
+void bpImageReaderC_FreeDataTypes(bpReaderTypesC_DataTypeVectorPtr aDataTypes) {
+  free(aDataTypes->mDataTypes);
+}
+
+
 static bpConverterTypes::tIndex5D Convert(bpReaderTypesC_Index5DPtr aIndex)
 {
   if (!aIndex) {
@@ -259,6 +295,13 @@ static void Convert(bpReaderTypesC_ParametersPtr aParamsC, const bpConverterType
     }
     vSectionIt++;
   }
+}
+
+
+bpReaderTypesC_DataTypeVectorPtr bpImageReaderC_GetFileImagesInformation(bpReaderTypesC_String aInputFile, bool aSWMR) {
+  bpReaderTypesC_DataTypeVectorPtr vDataTypeVectorPtr = new bpReaderTypesC_DataTypeVector;
+  Convert(vDataTypeVectorPtr, GetFileImagesInformation(Convert(aInputFile), aSWMR));
+  return vDataTypeVectorPtr;
 }
 
 
