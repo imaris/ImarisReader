@@ -39,6 +39,16 @@ public class jImarisReader {
         }
     }
 
+    public static class bpReaderTypesC_DataTypesVector extends Structure {
+        public Pointer mDataTypes;
+        public int mDataTypesSize;
+
+        @Override
+        protected List<String> getFieldOrder() {
+            return Arrays.asList("mDataTypes", "mDataTypesSize");
+        }
+    }
+
     public static class bpReaderTypesC_5D extends Structure {
         public int mValueX;
         public int mValueY;
@@ -358,6 +368,9 @@ public class jImarisReader {
         javaReader INSTANCE = (javaReader)
         Native.load("bpImarisReader", javaReader.class);
 
+        bpReaderTypesC_DataTypesVector bpImageReaderC_GetFileImagesInformation(String aInputFile, boolean aSWMR);
+        void bpImageReaderC_FreeDataTypes(bpReaderTypesC_DataTypesVector aDataTypes);
+
         Pointer bpImageReaderC_CreateUInt8(String aInputFile, int aImageIndex, bpReaderTypesC_Options aOptions);
         void bpImageReaderC_DestroyUInt8(Pointer aImageReaderC);
         void bpImageReaderC_ReadDataUInt8(Pointer aImageReaderC, bpReaderTypesC_5D aBegin, bpReaderTypesC_5D aEnd, int aResolutionIndex, Memory aData);
@@ -407,6 +420,27 @@ public class jImarisReader {
         void bpImageReaderC_FreeParameters(bpReaderTypesC_Parameters aParams);
     }
     // --- End interface ---
+
+    // --- Helper class to get images data type ---
+    public static class bpFileImagesInfo {
+        public String mInputFile;
+        public boolean mSWMR;
+
+        public bpFileImagesInfo(String aFileName, boolean aSWMR) {
+            this.mInputFile = aFileName;
+            this.mSWMR = aSWMR;
+        }
+
+        public ArrayList<Integer> GetFileImagesInformation() {
+            bpReaderTypesC_DataTypesVector vDataTypesC = javaReader.INSTANCE.bpImageReaderC_GetFileImagesInformation(this.mInputFile, this.mSWMR);
+            ArrayList<Integer> vDataTypes = new ArrayList<>();
+            for (int vI = 0; vI < vDataTypesC.mDataTypesSize; vI++) {
+                vDataTypes.add(vDataTypesC.mDataTypes.getInt(vI * 4));
+            }
+            javaReader.INSTANCE.bpImageReaderC_FreeDataTypes(vDataTypesC);
+            return vDataTypes;
+        }
+    }
 
     // --- Reader classes (UInt8, UInt16, UInt32, Float) ---
     public static class bpImageReaderUInt8 {
