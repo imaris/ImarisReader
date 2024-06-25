@@ -44,6 +44,10 @@ extern "C" {
 struct bpImageReaderC;
 typedef struct bpImageReaderC* bpImageReaderCPtr;
 
+BP_IMARISREADER_DLL_API bpReaderTypesC_DataTypeVectorPtr bpImageReaderC_GetFileImagesInformation(bpReaderTypesC_String aInputFile, bool aSWMR);
+
+BP_IMARISREADER_DLL_API void bpImageReaderC_FreeDataTypes(bpReaderTypesC_DataTypeVectorPtr aDataTypes);
+
 BP_IMARISREADER_DLL_API bpImageReaderCPtr bpImageReaderC_CreateUInt8(bpReaderTypesC_String aInputFile, unsigned int aImageIndex, bpReaderTypesC_OptionsPtr aOptions);
 BP_IMARISREADER_DLL_API bpImageReaderCPtr bpImageReaderC_CreateUInt16(bpReaderTypesC_String aInputFile, unsigned int aImageIndex, bpReaderTypesC_OptionsPtr aOptions);
 BP_IMARISREADER_DLL_API bpImageReaderCPtr bpImageReaderC_CreateUInt32(bpReaderTypesC_String aInputFile, unsigned int aImageIndex, bpReaderTypesC_OptionsPtr aOptions);
