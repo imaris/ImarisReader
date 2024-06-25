@@ -30,6 +30,14 @@ typedef enum
   bpReaderTypesC_UInt32Type,
   bpReaderTypesC_FloatType
 } bpReaderTypesC_DataType;
+typedef bpReaderTypesC_DataType* bpReaderTypesC_DataTypePtr;
+
+typedef struct
+{
+  bpReaderTypesC_DataTypePtr mDataTypes;
+  unsigned int mDataTypesSize;
+} bpReaderTypesC_DataTypeVector;
+typedef bpReaderTypesC_DataTypeVector* bpReaderTypesC_DataTypeVectorPtr;
 
 typedef const char* bpReaderTypesC_String;
 
