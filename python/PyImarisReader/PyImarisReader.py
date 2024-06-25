@@ -30,6 +30,13 @@ class bpReaderTypesC_Options(Structure):
     _fields_ = [('mSWMR', c_bool)]
 bpReaderTypesC_OptionsPtr = POINTER(bpReaderTypesC_Options)
 
+bpReaderTypesC_DataType = c_int
+bpReaderTypesC_DataTypePtr = POINTER(bpReaderTypesC_DataType)
+class bpReaderTypesC_DataTypeVector(Structure):
+    _fields_ = [('mDataTypes', bpReaderTypesC_DataTypePtr),
+                ('mDataTypesSize', c_uint)]
+bpReaderTypesC_DataTypeVectorPtr = POINTER(bpReaderTypesC_DataTypeVector)
+
 class bpReaderTypesC_Index5D(Structure):
     _fields_ = [('mValueX', c_uint),
                 ('mValueY', c_uint),
@@ -200,6 +207,52 @@ class Parameters:
     def set_value(self, section, parameter_name, value):
         self.mSections[section][parameter_name] = value
 
+
+# --- Helper class to get images data type ---
+class FileImagesInfo:
+    def __init__(self,
+                 input_filename : str,
+                 aSWMR : bool):
+        self._load_dll()
+        self._store_filename(input_filename)
+        self.mSWMR = aSWMR
+
+    def _store_filename(self, input_filename):
+        self.mInputFilename = self._get_c_char(input_filename)
+    
+    def _get_c_char(self, string):
+        encoded = c_char_p(str(string).encode())
+        return encoded
+
+    def _get_lib_filename(self):
+        if platform.system() == 'Windows':
+            return 'bpImarisReader.dll'
+        elif platform.system() == 'Darwin':
+            return 'libbpImarisReader.dylib'
+        elif platform.system() == 'Linux':
+            return 'libbpImarisReader.so'
+        else:
+            print('Platform not supported: "{}"'.format(platform.system()))
+            return None
+
+    def _load_dll(self):
+        lib_filename = self._get_lib_filename()
+        self.mcdll = CDLL(lib_filename)
+
+    def GetFileImagesInformation(self):
+        self.mcdll.bpImageReaderC_GetFileImagesInformation.argtypes = [bpReaderTypesC_String, c_bool]
+        self.mcdll.bpImageReaderC_GetFileImagesInformation.restype = bpReaderTypesC_DataTypeVectorPtr
+        dataTypes = self.mcdll.bpImageReaderC_GetFileImagesInformation(self.mInputFilename, self.mSWMR)
+        dataTypes_py = []
+        for i in range(dataTypes.contents.mDataTypesSize):
+            dataTypes_py.append(dataTypes.contents.mDataTypes[i])
+        self.FreeDataTypes(dataTypes)
+        return dataTypes_py
+
+    def FreeDataTypes(self, dataTypes : bpReaderTypesC_DataTypeVectorPtr):
+        self.mcdll.bpImageReaderC_FreeDataTypes.argtypes = [bpReaderTypesC_DataTypeVectorPtr]
+        self.mcdll.bpImageReaderC_FreeDataTypes.restype = None
+        self.mcdll.bpImageReaderC_FreeDataTypes(dataTypes)
 
 # --- Reader classes (UInt8, UInt16, UInt32, Float) ---
 class ImageReaderUInt8:
