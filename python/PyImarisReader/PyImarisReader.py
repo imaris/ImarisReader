@@ -449,13 +449,10 @@ class ImageReaderUInt16:
                                                                     self.mImageIndex,
                                                                     self.mOptions)
 
-    def ReadData(self, begin : Index5D, end : Index5D, resolution_index : int):
-        buffer_size = (end.X - begin.X) * (end.Y - begin.Y) * (end.Z - begin.Z) * (end.C - begin.C) * (end.T - begin.T)
-        buffer = (bpReaderTypesC_UInt16 * buffer_size)()
+    def ReadData(self, begin : Index5D, end : Index5D, resolution_index : int, buffer):
         self.mcdll.bpImageReaderC_ReadDataUInt16.argtypes = [bpImageReaderCPtr, bpReaderTypesC_Index5DPtr, bpReaderTypesC_Index5DPtr, c_uint, POINTER(bpReaderTypesC_UInt16)]
         self.mcdll.bpImageReaderC_ReadDataUInt16.restype = None
         self.mcdll.bpImageReaderC_ReadDataUInt16(self.mImageReaderPtr, begin.get_c_index5D(), end.get_c_index5D(), resolution_index, buffer)
-        return buffer
 
     def ReadMetadata(self):
         imageSizePerResolution = bpReaderTypesC_Size5DVectorPtr(bpReaderTypesC_Size5DVector())
@@ -600,13 +597,10 @@ class ImageReaderUInt32:
                                                                     self.mImageIndex,
                                                                     self.mOptions)
 
-    def ReadData(self, begin : Index5D, end : Index5D, resolution_index : int):
-        buffer_size = (end.X - begin.X) * (end.Y - begin.Y) * (end.Z - begin.Z) * (end.C - begin.C) * (end.T - begin.T)
-        buffer = (bpReaderTypesC_UInt32 * buffer_size)()
+    def ReadData(self, begin : Index5D, end : Index5D, resolution_index : int, buffer):
         self.mcdll.bpImageReaderC_ReadDataUInt32.argtypes = [bpImageReaderCPtr, bpReaderTypesC_Index5DPtr, bpReaderTypesC_Index5DPtr, c_uint, POINTER(bpReaderTypesC_UInt32)]
         self.mcdll.bpImageReaderC_ReadDataUInt32.restype = None
         self.mcdll.bpImageReaderC_ReadDataUInt32(self.mImageReaderPtr, begin.get_c_index5D(), end.get_c_index5D(), resolution_index, buffer)
-        return buffer
 
     def ReadMetadata(self):
         imageSizePerResolution = bpReaderTypesC_Size5DVectorPtr(bpReaderTypesC_Size5DVector())
@@ -751,13 +745,10 @@ class ImageReaderFloat:
                                                                     self.mImageIndex,
                                                                     self.mOptions)
 
-    def ReadData(self, begin : Index5D, end : Index5D, resolution_index : int):
-        buffer_size = (end.X - begin.X) * (end.Y - begin.Y) * (end.Z - begin.Z) * (end.C - begin.C) * (end.T - begin.T)
-        buffer = (bpReaderTypesC_Float * buffer_size)()
+    def ReadData(self, begin : Index5D, end : Index5D, resolution_index : int, buffer):
         self.mcdll.bpImageReaderC_ReadDataFloat.argtypes = [bpImageReaderCPtr, bpReaderTypesC_Index5DPtr, bpReaderTypesC_Index5DPtr, c_uint, POINTER(bpReaderTypesC_Float)]
         self.mcdll.bpImageReaderC_ReadDataFloat.restype = None
         self.mcdll.bpImageReaderC_ReadDataFloat(self.mImageReaderPtr, begin.get_c_index5D(), end.get_c_index5D(), resolution_index, buffer)
-        return buffer
 
     def ReadMetadata(self):
         imageSizePerResolution = bpReaderTypesC_Size5DVectorPtr(bpReaderTypesC_Size5DVector())
