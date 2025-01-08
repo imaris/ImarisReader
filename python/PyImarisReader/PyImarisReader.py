@@ -17,6 +17,7 @@
  
 from ctypes import *
 import platform
+import os.path
 from collections import defaultdict
 
 
@@ -226,11 +227,11 @@ class FileImagesInfo:
 
     def _get_lib_filename(self):
         if platform.system() == 'Windows':
-            return 'bpImarisReader.dll'
+            return os.path.join(os.path.dirname(__file__), 'bpImarisReader.dll')
         elif platform.system() == 'Darwin':
-            return 'libbpImarisReader.dylib'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.dylib')
         elif platform.system() == 'Linux':
-            return 'libbpImarisReader.so'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.so')
         else:
             print('Platform not supported: "{}"'.format(platform.system()))
             return None
@@ -281,11 +282,11 @@ class ImageReaderUInt8:
 
     def _get_lib_filename(self):
         if platform.system() == 'Windows':
-            return 'bpImarisReader.dll'
+            return os.path.join(os.path.dirname(__file__), 'bpImarisReader.dll')
         elif platform.system() == 'Darwin':
-            return 'libbpImarisReader.dylib'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.dylib')
         elif platform.system() == 'Linux':
-            return 'libbpImarisReader.so'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.so')
         else:
             print('Platform not supported: "{}"'.format(platform.system()))
             return None
@@ -429,11 +430,11 @@ class ImageReaderUInt16:
 
     def _get_lib_filename(self):
         if platform.system() == 'Windows':
-            return 'bpImarisReader.dll'
+            return os.path.join(os.path.dirname(__file__), 'bpImarisReader.dll')
         elif platform.system() == 'Darwin':
-            return 'libbpImarisReader.dylib'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.dylib')
         elif platform.system() == 'Linux':
-            return 'libbpImarisReader.so'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.so')
         else:
             print('Platform not supported: "{}"'.format(platform.system()))
             return None
@@ -577,11 +578,11 @@ class ImageReaderUInt32:
 
     def _get_lib_filename(self):
         if platform.system() == 'Windows':
-            return 'bpImarisReader.dll'
+            return os.path.join(os.path.dirname(__file__), 'bpImarisReader.dll')
         elif platform.system() == 'Darwin':
-            return 'libbpImarisReader.dylib'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.dylib')
         elif platform.system() == 'Linux':
-            return 'libbpImarisReader.so'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.so')
         else:
             print('Platform not supported: "{}"'.format(platform.system()))
             return None
@@ -725,11 +726,11 @@ class ImageReaderFloat:
 
     def _get_lib_filename(self):
         if platform.system() == 'Windows':
-            return 'bpImarisReader.dll'
+            return os.path.join(os.path.dirname(__file__), 'bpImarisReader.dll')
         elif platform.system() == 'Darwin':
-            return 'libbpImarisReader.dylib'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.dylib')
         elif platform.system() == 'Linux':
-            return 'libbpImarisReader.so'
+            return os.path.join(os.path.dirname(__file__), 'libbpImarisReader.so')
         else:
             print('Platform not supported: "{}"'.format(platform.system()))
             return None
